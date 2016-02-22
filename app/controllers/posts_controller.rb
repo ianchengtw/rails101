@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :find_group
-  before_action :group_member_check
+  before_action :group_member_check, except: [:show]
   before_action :post_author_check, only: [:edit, :update, :destroy]
 
   def new
