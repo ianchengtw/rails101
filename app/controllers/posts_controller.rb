@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :find_group
+  before_action :group_member_check
   before_action :post_author_check, only: [:edit, :update, :destroy]
 
   def new
@@ -26,11 +27,6 @@ class PostsController < ApplicationController
 
   def edit
     @post = @group.posts.find(params[:id])
-
-    # if !@post.editable_by?(current_user)
-    #   flash[:alert] = 'You are not the owner of this group, cannot edit'
-    #   redirect_to group_path(@group)
-    # end
   end
 
   def update
@@ -55,6 +51,13 @@ class PostsController < ApplicationController
   private
   def find_group
     @group = Group.find(params[:group_id])
+  end
+
+  def group_member_check
+    if !current_user.is_member_of?(@group)
+      flash[:alert] = 'You have not joined this group, cannot post'
+      redirect_to group_path(@group)
+    end
   end
 
   def post_author_check

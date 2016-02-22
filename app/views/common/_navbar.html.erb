@@ -11,10 +11,11 @@
           <li><%= link_to("Sign in", new_user_session_path) %></li>
         <% else %>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Hi, Ian
+            Hi, <%= current_user.name %>
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
+            <li><%= link_to("Edit Account", edit_user_registration_path) %></li>
             <li><%= link_to("Sign out", destroy_user_session_path, method: :delete) %></li>
           </ul>
         <% end %>
