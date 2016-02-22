@@ -1,9 +1,29 @@
 <div class="col md-12">
   <div class="group">
-    <%= link_to("Edit", edit_group_path(@group), class: 'btn btn-primary pull-right') %>
+    <%= link_to("New Post", new_group_post_path(@group), class: 'btn btn-primary pull-right') %>
   </div>
 
   <h2><%= @group.title %></h2>
   <p><%= @group.description %></p>
   <%= link_to("Back", groups_path, class: 'btn btn-default') %>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @group.posts.map do |post| %>
+        <tr>
+          <td><%= link_to(truncate(post.content, length: 100), group_post_path(@group, post)) %></td>
+          <td>
+            <%= link_to("Edit", edit_group_post_path(@group, post), class: 'btn btn-default btn-xs') %>
+            <%= link_to("Delete", group_post_path(@group, post), class: 'btn btn-default btn-xs', method: :delete, data: { confirm: 'Are you sure?' }) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
