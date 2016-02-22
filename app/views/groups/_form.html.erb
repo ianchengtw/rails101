@@ -1,0 +1,9 @@
+<%= simple_form_for group do |f| %>
+  <div class="group-form">
+    <%= f.input :title, input_html: { class: 'form-control' } %>
+    <%= f.input :description, input_html: { class: 'form-control' } %>
+  </div>
+  <div class="group-actions">
+    <%= f.submit 'Submit', class: 'btn btn-primary', data: { disable_with: 'Submitting...' } %>
+  </div>
+<% end %>
