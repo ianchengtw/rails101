@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
     @group.owner = current_user
 
     if @group.save
+      current_user.join!(@group)
       flash[:notice] = 'New Group Successed'
     else
       flash[:alert] = 'New Group failed'
